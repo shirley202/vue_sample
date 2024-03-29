@@ -17,12 +17,11 @@
 export default {
   name: 'TodoItem',
   props: {
-    todo: String, // Define la propiedad 'todo' como una cadena
-    index: Number // Define la propiedad 'index' como un número
+    todo: String,
+    index: Number
   },
   methods: {
     removeTodo() {
-      // Emitir un evento para notificar al componente padre que se debe eliminar este elemento
       this.$emit('remove', this.index);
     }
   }

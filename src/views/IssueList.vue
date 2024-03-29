@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h1>issueリスト</h1>
-    <el-button type="success" @click="getIssues()">issue取得</el-button>
+    <h1>Lista de Problemas</h1>
+    <el-button type="success" @click="getIssues()">Obtener Problemas</el-button>
     <div v-if="issues.length > 0">
-      <ul>
-        <li v-for="issue in issues" :key="issue.id" @click="showIssueDetails(issue)">
-          {{ issue.title }}
-        </li>
-      </ul>
+      <el-card v-for="issue in issues" :key="issue.id" class="issue-card" shadow="hover">
+        <div class="issue-content">{{ issue.title }}</div>
+        <el-button @click="removeIssue(issue)" type="success" icon="el-icon-check" circle></el-button>
+      </el-card>
     </div>
   </div>
 </template>
@@ -36,10 +35,22 @@ export default {
         console.error('Error fetching issues:', error);
       });
     },
-    showIssueDetails(issue) {
-      console.log('Clicked issue:', issue);
-      // Aquí puedes realizar acciones adicionales cuando se hace clic en un problema
+    removeIssue(issue) {
+      const index = this.issues.indexOf(issue);
+      if (index !== -1) {
+        this.issues.splice(index, 1);
+      }
     }
   }
 };
 </script>
+
+<style scoped>
+.issue-card {
+  margin-bottom: 10px;
+}
+
+.issue-content {
+  font-weight: bold;
+}
+</style>
